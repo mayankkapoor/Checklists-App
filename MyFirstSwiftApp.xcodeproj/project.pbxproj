@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541F4906195031A3000BAA3F /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F4905195031A3000BAA3F /* ChecklistItem.swift */; };
 		5446D521194C70FF006E75D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5446D520194C70FF006E75D0 /* AppDelegate.swift */; };
 		5446D523194C70FF006E75D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5446D522194C70FF006E75D0 /* ViewController.swift */; };
 		5446D526194C70FF006E75D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5446D524194C70FF006E75D0 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		541F4905195031A3000BAA3F /* ChecklistItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		5446D51B194C70FF006E75D0 /* MyFirstSwiftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFirstSwiftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5446D51F194C70FF006E75D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5446D520194C70FF006E75D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				5446D520194C70FF006E75D0 /* AppDelegate.swift */,
 				5446D522194C70FF006E75D0 /* ViewController.swift */,
+				541F4905195031A3000BAA3F /* ChecklistItem.swift */,
 				5446D524194C70FF006E75D0 /* Main.storyboard */,
 				5446D527194C70FF006E75D0 /* Images.xcassets */,
 				5446D51E194C70FF006E75D0 /* Supporting Files */,
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5446D523194C70FF006E75D0 /* ViewController.swift in Sources */,
+				541F4906195031A3000BAA3F /* ChecklistItem.swift in Sources */,
 				5446D521194C70FF006E75D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +401,7 @@
 				5446D539194C70FF006E75D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5446D53A194C70FF006E75D0 /* Build configuration list for PBXNativeTarget "MyFirstSwiftAppTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +410,7 @@
 				5446D53C194C70FF006E75D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
