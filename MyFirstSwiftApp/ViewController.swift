@@ -61,5 +61,13 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
+	
+	@IBAction func addItem(sender: AnyObject?) {
+		let newRowIndex = items.count
+		let item = ChecklistItem(text: "New item", checked: false)
+		items.append(item)
+		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
+		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
+	}
 }
 
