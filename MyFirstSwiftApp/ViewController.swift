@@ -69,5 +69,10 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
 		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
 	}
+	
+	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+		items.removeAtIndex(indexPath.row)
+		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+	}
 }
 
