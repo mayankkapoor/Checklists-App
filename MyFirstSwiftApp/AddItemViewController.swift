@@ -11,10 +11,10 @@ import UIKit
 
 class AddItemViewController: UITableViewController {
 	@IBAction func cancel(sender: AnyObject) {
-		navigationController.dismissModalViewControllerAnimated(true)
+		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 
 	@IBAction func done(sender: AnyObject) {
-		navigationController.dismissModalViewControllerAnimated(true)
+		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 }
