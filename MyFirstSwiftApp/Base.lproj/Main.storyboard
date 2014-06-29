@@ -37,7 +37,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="uWs-LE-cdT">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="u6C-bs-16V">
                             <connections>
-                                <segue destination="Get-Cs-027" kind="presentation" id="IxS-u0-sMB"/>
+                                <segue destination="Get-Cs-027" kind="presentation" identifier="Add Item" id="IxS-u0-sMB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -50,19 +50,30 @@
         <scene sceneID="TRR-8o-Cwv">
             <objects>
                 <tableViewController id="OjY-2V-mtp" customClass="AddItemViewController" customModule="MyFirstSwiftApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Zms-Za-UMh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Zms-Za-UMh">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" id="kiv-0O-hh4">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kiv-0O-hh4" id="fuY-9a-bPJ">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <sections>
+                            <tableViewSection id="SHG-6a-0BH">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" id="kiv-0O-hh4">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kiv-0O-hh4" id="fuY-9a-bPJ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter name of the item" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g1P-i6-7Us">
+                                                    <rect key="frame" x="20" y="7" width="440" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="OjY-2V-mtp" id="UM7-5b-6pJ"/>
                             <outlet property="delegate" destination="OjY-2V-mtp" id="bE2-hV-Ae2"/>
@@ -80,6 +91,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="g1P-i6-7Us" id="46r-82-9FU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RNk-xD-6xb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

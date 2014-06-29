@@ -9,12 +9,22 @@
 import Foundation
 import UIKit
 
+protocol AddItemViewControllerDelegate {
+	func addItemViewControllerDidCancel()
+	func didFinishAddingItem(item: ChecklistItem)
+}
+
 class AddItemViewController: UITableViewController {
+	var delegate: AddItemViewControllerDelegate? //Specifying as optional as we're not initializing AddItemViewController with a delegate. Delegate is assigned on the fly.
+	
+	@IBOutlet var textField : UITextField = nil
+	
 	@IBAction func cancel(sender: AnyObject) {
-		navigationController.dismissViewControllerAnimated(true, completion: {})
+		self.delegate?.addItemViewControllerDidCancel()
 	}
 
 	@IBAction func done(sender: AnyObject) {
-		navigationController.dismissViewControllerAnimated(true, completion: {})
+		let newItem = ChecklistItem(text: textField.text, checked: false)
+		self.delegate?.didFinishAddingItem(newItem)
 	}
 }

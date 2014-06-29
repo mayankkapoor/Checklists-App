@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class ChecklistsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
 	
 	var items: ChecklistItem[] = []
                             
@@ -62,13 +62,33 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
 	
-	@IBAction func addItem(sender: AnyObject?) {
+	override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+		if segue.identifier == "Add Item" {
+			var navController:  UINavigationController = segue.destinationViewController as UINavigationController
+			var addItemController: AddItemViewController = navController.topViewController as AddItemViewController
+			addItemController.delegate = self
+		}
+	}
+	
+	func addItemViewControllerDidCancel() {
+		navigationController.dismissViewControllerAnimated(true, completion: {})
+	}
+	
+	func didFinishAddingItem(item: ChecklistItem) {
 		let newRowIndex = items.count
-		let item = ChecklistItem(text: "New item", checked: false)
 		items.append(item)
 		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
 		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
+		navigationController.dismissViewControllerAnimated(true, completion: {})		
 	}
+	
+//	@IBAction func addItem(sender: AnyObject?) {
+//		let newRowIndex = items.count
+//		let item = ChecklistItem(text: "New item", checked: false)
+//		items.append(item)
+//		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
+//		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
+//	}
 	
 	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
 		items.removeAtIndex(indexPath.row)
