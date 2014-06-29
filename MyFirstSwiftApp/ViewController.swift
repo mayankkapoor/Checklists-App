@@ -29,11 +29,12 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 	}
 	
 	func configureCheckmarkForCell(cell: UITableViewCell, index: Int) {
+		let label: UILabel = cell.viewWithTag(101) as UILabel
 		let isChecked = items[index].checked
 		if (isChecked) {
-			cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+			label.text = "√"
 		} else {
-			cell.accessoryType = UITableViewCellAccessoryType.None
+			label.text = ""
 		}
 	}
 	
