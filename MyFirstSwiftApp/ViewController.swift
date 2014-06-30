@@ -64,10 +64,16 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+		var navController:  UINavigationController = segue.destinationViewController as UINavigationController
+		var addItemController: AddItemViewController = navController.topViewController as AddItemViewController
 		if segue.identifier == "Add Item" {
-			var navController:  UINavigationController = segue.destinationViewController as UINavigationController
-			var addItemController: AddItemViewController = navController.topViewController as AddItemViewController
 			addItemController.delegate = self
+		} else if segue.identifier == "EditItem" {
+			addItemController.delegate = self
+			addItemController.title = "Edit Item"
+			let cell: UITableViewCell = sender as UITableViewCell
+			let editingCellIndexPath: NSIndexPath = tableView.indexPathForCell(cell)
+			addItemController.itemToEdit = items[editingCellIndexPath.row]
 		}
 	}
 	
@@ -81,6 +87,11 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
 		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
 		navigationController.dismissViewControllerAnimated(true, completion: {})		
+	}
+	
+	func didFinishEditingItem(editedItem: ChecklistItem) {
+		tableView.reloadData()
+		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 	
 //	@IBAction func addItem(sender: AnyObject?) {
