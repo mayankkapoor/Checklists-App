@@ -17,14 +17,14 @@ protocol AddItemViewControllerDelegate {
 
 class AddItemViewController: UITableViewController {
 	var delegate: AddItemViewControllerDelegate? //Specifying as optional as we're not initializing AddItemViewController with a delegate. Delegate is assigned on the fly.
-	
-	@IBOutlet var textField : UITextField = nil
-	
-	var itemToEdit: ChecklistItem?
+	@IBOutlet var textField : UITextField!
+	var itemToEdit: ChecklistItem? = nil
 	
 	override func viewDidLoad() {
-		if itemToEdit != nil {
-			textField.text = itemToEdit?.text
+		if let unwrappedItem = itemToEdit {
+			textField.text = unwrappedItem.text
+		} else {
+			textField.text = ""
 		}
 	}
 	
@@ -33,9 +33,9 @@ class AddItemViewController: UITableViewController {
 	}
 
 	@IBAction func done(sender: AnyObject) {
-		if let editedItem = self.itemToEdit? { // Check for nil value
-			editedItem.text = textField.text
-			self.delegate?.didFinishEditingItem(editedItem)
+		if let unwrappedEditedItem = self.itemToEdit { // Check for nil value
+			unwrappedEditedItem.text = textField.text
+			self.delegate?.didFinishEditingItem(unwrappedEditedItem)
 		} else {
 			let newItem = ChecklistItem(text: textField.text, checked: false)
 			self.delegate?.didFinishAddingItem(newItem)

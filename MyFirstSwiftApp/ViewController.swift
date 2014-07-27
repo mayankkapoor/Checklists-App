@@ -10,7 +10,7 @@ import UIKit
 
 class ChecklistsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
 	
-	var items: ChecklistItem[] = []
+	var items: [ChecklistItem] = []
                             
 	override func viewDidLoad() {
 		super.viewDidLoad()
