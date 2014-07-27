@@ -21,7 +21,7 @@ class AddItemViewController: UITableViewController {
 	var itemToEdit: ChecklistItem? = nil
 	
 	override func viewDidLoad() {
-		if let unwrappedItem = itemToEdit {
+		if let unwrappedItem = self.itemToEdit {
 			textField.text = unwrappedItem.text
 		} else {
 			textField.text = ""
@@ -33,7 +33,7 @@ class AddItemViewController: UITableViewController {
 	}
 
 	@IBAction func done(sender: AnyObject) {
-		if let unwrappedEditedItem = self.itemToEdit { // Check for nil value
+		if let unwrappedEditedItem = self.itemToEdit {
 			unwrappedEditedItem.text = textField.text
 			self.delegate?.didFinishEditingItem(unwrappedEditedItem)
 		} else {
