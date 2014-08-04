@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ChecklistsViewController.swift
 //  MyFirstSwiftApp
 //
 //  Created by Mayank Kapoor on 6/14/14.
