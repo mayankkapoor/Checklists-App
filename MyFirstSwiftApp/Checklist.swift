@@ -9,8 +9,8 @@
 import Foundation
 
 class Checklist: NSObject, NSCoding {
-	var name: String? //? as can be nil
-	var items: [ChecklistItem]? = [] //? as can be nil
+	var name: String
+	var items: [ChecklistItem] = []
 	
 	func encodeWithCoder(aCoder: NSCoder!) {
 		aCoder.encodeObject(name, forKey: "Name")
@@ -18,7 +18,15 @@ class Checklist: NSObject, NSCoding {
 	}
 	
 	init(coder aDecoder: NSCoder!) {
-		self.name = aDecoder.decodeObjectForKey("Name") as? String
-		self.items = aDecoder.decodeObjectForKey("Items") as? [ChecklistItem]
+		self.name = aDecoder.decodeObjectForKey("Name") as String
+		self.items = aDecoder.decodeObjectForKey("Items") as [ChecklistItem]
+	}
+	
+	init(name: String) {
+		self.name = name
+	}
+	
+	init() {
+		self.name = ""
 	}
 }

@@ -29,14 +29,25 @@ class DataModel: NSObject {
 			var unArchiver: NSKeyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data)
 			self.lists = unArchiver.decodeObjectForKey("Checklists") as? [Checklist]
 			unArchiver.finishDecoding()
+			println("Finished loading Checklists from data file \(filePath)")
 		} else {
 			println("No data archive exists, creating empty list")
+			var lists: [Checklist] = []
+			var list: Checklist = Checklist(name: "To do")
+			var items: [ChecklistItem] = []
+			list.items = items
+			lists.append(list)
+			self.lists = lists
 		}
 		return true
 	}
 	
 	init() {
 		super.init()
-		self.loadChecklists()
+		if self.loadChecklists() {
+			println("DataModel loaded")
+		} else {
+			println("Oops, something went wrong!")
+		}
 	}
 }

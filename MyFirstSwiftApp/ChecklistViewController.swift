@@ -10,7 +10,7 @@ import UIKit
 
 class ChecklistViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
 	
-	var items: [ChecklistItem] = []
+	var checklist: Checklist = Checklist()
 	
 //	let dataFilePath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String + "/Checklists.plist"
 	
@@ -43,6 +43,7 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
+		self.title = self.checklist.name
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -51,12 +52,12 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 	}
 	
 	override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-		return items.count
+		return self.checklist.items.count
 	}
 	
 	func configureCheckmarkForCell(cell: UITableViewCell, index: Int) {
 		let label: UILabel = cell.viewWithTag(101) as UILabel
-		let isChecked = items[index].checked
+		let isChecked = self.checklist.items[index].checked
 		if (isChecked) {
 			label.text = "√"
 		} else {
@@ -71,17 +72,15 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 	
 	override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem") as UITableViewCell
-		let item: ChecklistItem = items[indexPath.row]
-		
+		let item: ChecklistItem = self.checklist.items[indexPath.row]
 		configureTextForCell(cell, item: item)
 		configureCheckmarkForCell(cell, index: indexPath.row)
-		
 		return cell
 	}
 	
 	override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
 		let cell: UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)
-		let item: ChecklistItem = items[indexPath.row]
+		let item: ChecklistItem = self.checklist.items[indexPath.row]
 		
 		item.checked = !item.checked
 		configureCheckmarkForCell(cell, index: indexPath.row)
@@ -101,7 +100,7 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 			addItemController.title = "Edit Item"
 			let cell: UITableViewCell = sender as UITableViewCell
 			let editingCellIndexPath: NSIndexPath = tableView.indexPathForCell(cell)
-			addItemController.itemToEdit = items[editingCellIndexPath.row]
+			addItemController.itemToEdit = self.checklist.items[editingCellIndexPath.row]
 		}
 	}
 	
@@ -110,11 +109,11 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 	}
 	
 	func didFinishAddingItem(item: ChecklistItem) {
-		let newRowIndex = items.count
-		items.append(item)
+		let newRowIndex = self.checklist.items.count
+		self.checklist.items.append(item)
 		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
 		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
-//		self.saveChecklistsItems()
+		//		self.saveChecklistsItems()
 		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 	
@@ -133,7 +132,7 @@ class ChecklistViewController: UITableViewController, UITableViewDataSource, UIT
 //	}
 	
 	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-		items.removeAtIndex(indexPath.row)
+		self.checklist.items.removeAtIndex(indexPath.row)
 //		self.saveChecklistsItems()
 		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 	}
