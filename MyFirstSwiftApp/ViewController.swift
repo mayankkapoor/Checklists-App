@@ -8,37 +8,37 @@
 
 import UIKit
 
-class ChecklistsViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate {
 	
 	var items: [ChecklistItem] = []
 	
-	let dataFilePath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String + "/Checklists.plist"
+//	let dataFilePath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String + "/Checklists.plist"
 	
-	func saveChecklistsItems() -> Bool {
-		var data: NSMutableData = NSMutableData.alloc()
-		var archiver: NSKeyedArchiver = NSKeyedArchiver(forWritingWithMutableData: data)
-		archiver.encodeObject(items, forKey: "ChecklistItems")
-		archiver.finishEncoding()
-		data.writeToFile(dataFilePath, atomically: true)
-		return true
-	}
+//	func saveChecklistsItems() -> Bool {
+//		var data: NSMutableData = NSMutableData.alloc()
+//		var archiver: NSKeyedArchiver = NSKeyedArchiver(forWritingWithMutableData: data)
+//		archiver.encodeObject(items, forKey: "ChecklistItems")
+//		archiver.finishEncoding()
+//		data.writeToFile(dataFilePath, atomically: true)
+//		return true
+//	}
 	
-	func loadChecklistItems() {
-		let filePath = self.dataFilePath
-		if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-			var data: NSData = NSData(contentsOfFile: filePath)
-			var unArchiver: NSKeyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-			items = unArchiver.decodeObjectForKey("ChecklistItems") as [ChecklistItem]
-			unArchiver.finishDecoding()
-		} else {
-			println("No data archive exists, creating empty Checklist")
-		}
-	}
+//	func loadChecklistItems() {
+//		let filePath = self.dataFilePath
+//		if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+//			var data: NSData = NSData(contentsOfFile: filePath)
+//			var unArchiver: NSKeyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+//			items = unArchiver.decodeObjectForKey("ChecklistItems") as [ChecklistItem]
+//			unArchiver.finishDecoding()
+//		} else {
+//			println("No data archive exists, creating empty Checklist")
+//		}
+//	}
 	
-	init(coder aDecoder: NSCoder!) {
-		super.init(coder: aDecoder)
-		self.loadChecklistItems()
-	}
+//	init(coder aDecoder: NSCoder!) {
+//		super.init(coder: aDecoder)
+//		self.loadChecklistItems()
+//	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -86,7 +86,7 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		item.checked = !item.checked
 		configureCheckmarkForCell(cell, index: indexPath.row)
 		
-		self.saveChecklistsItems()
+//		self.saveChecklistsItems()
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
@@ -114,12 +114,12 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 		items.append(item)
 		let indexPathToAdd = NSIndexPath(forRow: newRowIndex, inSection: 0)
 		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
-		self.saveChecklistsItems()
+//		self.saveChecklistsItems()
 		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 	
 	func didFinishEditingItem(editedItem: ChecklistItem) {
-		self.saveChecklistsItems()
+//		self.saveChecklistsItems()
 		tableView.reloadData()
 		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
@@ -134,7 +134,7 @@ class ChecklistsViewController: UITableViewController, UITableViewDataSource, UI
 	
 	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
 		items.removeAtIndex(indexPath.row)
-		self.saveChecklistsItems()
+//		self.saveChecklistsItems()
 		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 	}
 }
