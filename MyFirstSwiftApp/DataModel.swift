@@ -42,7 +42,7 @@ class DataModel: NSObject {
 		return true
 	}
 	
-	init() {
+	override init() {
 		super.init()
 		if self.loadChecklists() {
 			println("DataModel loaded")

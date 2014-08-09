@@ -22,7 +22,7 @@ class ChecklistItem: NSObject, NSCoding {
 		aCoder.encodeBool(self.checked, forKey: "Checked")
 	}
 	
-	init(coder aDecoder: NSCoder!) {
+	required init(coder aDecoder: NSCoder!) {
 		self.text = aDecoder.decodeObjectForKey("Text") as? String //? as Text data can be nil
 		self.checked = aDecoder.decodeBoolForKey("Checked")
 	}

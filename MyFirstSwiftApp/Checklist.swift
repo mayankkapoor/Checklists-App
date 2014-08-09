@@ -17,7 +17,7 @@ class Checklist: NSObject, NSCoding {
 		aCoder.encodeObject(items, forKey: "Items")
 	}
 	
-	init(coder aDecoder: NSCoder!) {
+	required init(coder aDecoder: NSCoder!) {
 		self.name = aDecoder.decodeObjectForKey("Name") as String
 		self.items = aDecoder.decodeObjectForKey("Items") as [ChecklistItem]
 	}
@@ -26,7 +26,7 @@ class Checklist: NSObject, NSCoding {
 		self.name = name
 	}
 	
-	init() {
+	override init() {
 		self.name = ""
 	}
 }
