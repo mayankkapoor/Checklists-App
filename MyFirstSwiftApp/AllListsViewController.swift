@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class AllListsViewController: UITableViewController {
-	var data: DataModel! = DataModel()
+class AllListsViewController: UITableViewController, ChecklistDetailViewControllerDelegate {
+	var data: DataModel = DataModel()
 	
 	required init(coder aDecoder: NSCoder!) {
 		super.init(coder: aDecoder)
@@ -41,6 +41,27 @@ class AllListsViewController: UITableViewController {
 				let clickedCellIndexPath: NSIndexPath = tableView.indexPathForCell(cell)
 				controller.checklist = lists[clickedCellIndexPath.row]
 			}
+		} else if segue.identifier == "ChecklistDetail" {
+			let navController: UINavigationController = segue.destinationViewController as UINavigationController
+			let checklistDetailController = navController.topViewController as ChecklistDetailViewController
+			checklistDetailController.delegate = self
 		}
+	}
+	
+	func checklistDetailViewControllerDidCancel() {
+		navigationController.dismissViewControllerAnimated(true, completion: {})
+	}
+	
+	func didFinishAddingChecklist(newChecklist: Checklist) {
+		let newRowIndex = self.data.lists?.count
+		self.data.lists?.append(newChecklist)
+		let indexPathToAdd = NSIndexPath(forRow: newRowIndex!, inSection: 0)
+		tableView.insertRowsAtIndexPaths([indexPathToAdd], withRowAnimation: UITableViewRowAnimation.Automatic)
+		navigationController.dismissViewControllerAnimated(true, completion: {})
+	}
+	
+	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+		self.data.lists?.removeAtIndex(indexPath.row)
+		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 	}
 }
