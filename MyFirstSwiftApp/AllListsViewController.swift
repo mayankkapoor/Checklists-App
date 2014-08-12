@@ -41,10 +41,19 @@ class AllListsViewController: UITableViewController, ChecklistDetailViewControll
 				let clickedCellIndexPath: NSIndexPath = tableView.indexPathForCell(cell)
 				controller.checklist = lists[clickedCellIndexPath.row]
 			}
-		} else if segue.identifier == "ChecklistDetail" {
+		} else {
 			let navController: UINavigationController = segue.destinationViewController as UINavigationController
 			let checklistDetailController = navController.topViewController as ChecklistDetailViewController
 			checklistDetailController.delegate = self
+			if segue.identifier == "CreateChecklist" {
+				
+			} else if segue.identifier == "EditChecklist" {
+				checklistDetailController.title = "Edit Checklist"
+				let cell: UITableViewCell = sender as UITableViewCell
+				let editingCellIndexPath: NSIndexPath = tableView.indexPathForCell(cell)
+				println("editingCellIndexPath.row = \(editingCellIndexPath.row)")
+				checklistDetailController.checklistToEdit = self.data.lists?[editingCellIndexPath.row]
+			}
 		}
 	}
 	
@@ -60,8 +69,14 @@ class AllListsViewController: UITableViewController, ChecklistDetailViewControll
 		navigationController.dismissViewControllerAnimated(true, completion: {})
 	}
 	
+	func didFinishEditingChecklist(editedChecklist: Checklist) {
+		tableView.reloadData()
+		navigationController.dismissViewControllerAnimated(true, completion: {})
+	}
+	
 	override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
 		self.data.lists?.removeAtIndex(indexPath.row)
 		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 	}
+	
 }

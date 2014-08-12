@@ -12,18 +12,34 @@ import UIKit
 protocol ChecklistDetailViewControllerDelegate {
 	func checklistDetailViewControllerDidCancel()
 	func didFinishAddingChecklist(newChecklist: Checklist)
+	func didFinishEditingChecklist(editedChecklist: Checklist)
 }
 
 class ChecklistDetailViewController: UITableViewController {
 	var delegate: ChecklistDetailViewControllerDelegate?
-	
+	var checklistToEdit: Checklist? = nil
 	@IBOutlet var textField: UITextField!
+	
+	override func viewDidLoad() {
+		if let unwrappedChecklist = self.checklistToEdit {
+			textField.text = unwrappedChecklist.name
+		} else {
+			textField.text = ""
+		}
+	}
+	
 	@IBAction func cancel(sender: AnyObject) {
 		self.delegate?.checklistDetailViewControllerDidCancel()
 	}
+	
 	@IBAction func done(sender: AnyObject) {
-		let newChecklist = Checklist(name: textField.text)
-		self.delegate?.didFinishAddingChecklist(newChecklist)
+		if let unwrappedChecklist = self.checklistToEdit {
+			unwrappedChecklist.name = self.textField.text
+			self.delegate?.didFinishEditingChecklist(unwrappedChecklist)
+		} else {
+			let newChecklist = Checklist(name: textField.text)
+			self.delegate?.didFinishAddingChecklist(newChecklist)
+		}
 	}
 	
 }
